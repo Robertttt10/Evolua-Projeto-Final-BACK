@@ -1,17 +1,18 @@
 import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
-import { UpdateUserDto } from './dto/update-user.dto';
-import { ApiTags } from '@nestjs/swagger';
+import { UpdatePasswordDto, UpadteIsActiveDto } from './dto/update-user.dto';
+import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/jwt.auth.guard';
 
+@ApiBearerAuth()
 @ApiTags('Users')
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
-  @Post()
-  create(@Body() @Param() createUserDto: CreateUserDto) {
+  @Post('createUsers')
+  create(@Param() @Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
@@ -21,18 +22,23 @@ export class UsersController {
     return this.usersService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.usersService.findOne(+id);
+  @UseGuards(JwtGuard)
+  @Get(':email')
+  findOne(@Param('email') email: string) {
+    return this.usersService.findByEmail(email);
   }
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateUserDto: UpdateUserDto) {
-    return this.usersService.update(+id, updateUserDto);
+  @UseGuards(JwtGuard)
+  @Patch('password')
+  async updatePassword(@Body() updatePasswordDto: UpdatePasswordDto ) {
+    const result = await this.usersService.updatePassword(updatePasswordDto);
+    return result
   }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.usersService.remove(+id);
+  
+  @UseGuards(JwtGuard)
+  @Patch('isActive')
+  async updateIsActive(@Body() upadteIsActiveDto: UpadteIsActiveDto ) {
+    const result = await this.usersService.updateIsActive(upadteIsActiveDto);
+    return 
   }
 }

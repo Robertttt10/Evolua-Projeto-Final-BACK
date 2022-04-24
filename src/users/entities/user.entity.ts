@@ -10,6 +10,8 @@ export class User {
     email: string;
     @Column()
     password: string;
+    @Column()
+    userGroup: string;
     @Column({default:true})
     isActive: boolean;
 }

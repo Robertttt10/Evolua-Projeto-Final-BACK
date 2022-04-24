@@ -5,5 +5,15 @@ export class Auth {
     @PrimaryGeneratedColumn()
     id: number;
     @Column()
-    password: string;
+    token: string;
+    @Column()
+    email: string;
+    @Column()
+    userGroup: string; 
+    @Column()
+    date_login: Date;
+    @Column()
+    date_logout: Date;
+    @Column()
+    isloggedIn: boolean;
 }

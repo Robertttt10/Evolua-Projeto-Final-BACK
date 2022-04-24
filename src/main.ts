@@ -14,6 +14,7 @@ async function bootstrap() {
   .setDescription('API CRUD Virtual Store')
   .setVersion('1.0')
   .addTag('API')
+  .addBearerAuth()
   .build();
 const document = SwaggerModule.createDocument(app, config);
 SwaggerModule.setup('api', app, document);
