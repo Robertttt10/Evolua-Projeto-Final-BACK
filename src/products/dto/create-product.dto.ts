@@ -7,17 +7,20 @@ export class CreateProductDto {
     product_name: string;
     @ApiProperty()
     @Column()
-    product_description: string;
+    product_type: string;
+    @ApiProperty()
+    @Column({nullable:true})
+    product_description?: string;
     @ApiProperty()
     @Column()
     product_number: string;
     @ApiProperty()
-    @Column()
-    color:string;
+    @Column({nullable:true})
+    image?:string;
     @ApiProperty()
     @Column()
     quantity: number
     @ApiProperty()
     @Column()
-    price: string;
+    price: number;
 }

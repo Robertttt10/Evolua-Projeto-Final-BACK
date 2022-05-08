@@ -1,9 +1,9 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards } from '@nestjs/common';
 import { UsersService } from './users.service';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdatePasswordDto, UpadteIsActiveDto } from './dto/update-user.dto';
 import { ApiBearerAuth, ApiProperty, ApiTags } from '@nestjs/swagger';
 import { JwtGuard } from 'src/auth/jwt.auth.guard';
+import { Body, Controller, Get, Param, Patch, Post, UseGuards } from '@nestjs/common/decorators';
 
 @ApiBearerAuth()
 @ApiTags('Users')
@@ -12,11 +12,11 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Post('createUsers')
-  create(@Param() @Body() createUserDto: CreateUserDto) {
+  create(@Body() createUserDto: CreateUserDto) {
     return this.usersService.create(createUserDto);
   }
 
-  @UseGuards(JwtGuard)
+  /* @UseGuards(JwtGuard) */
   @Get()
   findAll() {
     return this.usersService.findAll();

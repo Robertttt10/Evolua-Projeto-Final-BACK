@@ -1,4 +1,5 @@
-import { Column, Entity, PrimaryGeneratedColumn } from "typeorm";
+import { isEmpty } from "rxjs";
+import { Column, Entity, IsNull, PrimaryGeneratedColumn } from "typeorm";
 
 @Entity()
 export class Product {
@@ -7,15 +8,17 @@ export class Product {
     @Column()
     product_name: string;
     @Column()
+    product_type: string;
+    @Column({nullable:true})
     product_description: string;
     @Column()
     product_number: string;
+    @Column({nullable:true})
+    image?:string;
     @Column()
-    color:string;
+    quantity: number;
     @Column()
-    quantity: number
-    @Column()
-    price: string;
+    price: number;
 }
 
 

@@ -6,13 +6,13 @@ export class UpdateProductDto extends PartialType(CreateProductDto) {
     @Column()
     product_name: string;
     @Column()
-    product_description: string;
+    product_description?: string;
     @Column()
     product_number: string;
     @Column()
-    color:string;
+    image:string;
     @Column()
     quantity: number
     @Column()
-    price: string;
+    price: number;
 }
